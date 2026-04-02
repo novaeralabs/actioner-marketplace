@@ -39,6 +39,7 @@ Support tickets from all integrated data sources.
 | source_table        | text      | Data source ID this ticket came from                                |
 
 **Relationships:**
+
 - `end_user_id` → `contacts.id`
 - `agent_ids[n]` → `contacts.id`
 - Join with `ticket_participants` on `ticket_id` for all participants
@@ -81,6 +82,7 @@ Customer accounts from the unified contact mediation layer.
 | customer_type                | text      | Customer type from custom fields                                            |
 
 **Relationships:**
+
 - Join with `contacts` on `contacts.company_id = companies.id`
 - Join with `deals` on `deals.company_id = companies.id`
 - Join with `entitlements` on `entitlements.company_id = companies.id`
@@ -119,6 +121,7 @@ People (end users and internal users) from the unified contact mediation layer.
 | listed           | text   | `LISTED`, `LISTED_BY_USER`, `NOT_LISTED`, `NOT_LISTED_BY_USER` |
 
 **Relationships:**
+
 - `company_id` → `companies.id`
 - Referenced by `tickets.end_user_id`, `tickets.agent_ids`, `deal_stakeholders.contact_id`, `health_stakeholders.contact_id`
 
@@ -158,6 +161,7 @@ Conversations (emails, meetings, chats) that involve at least one listed externa
 | source_table       | text      | Data source ID                                     |
 
 **Relationships:**
+
 - Join with `conversation_messages` on `conversation_messages.conversation_id = conversations.id`
 - Join with `participants` on `participants.conversation_id = conversations.id`
 - Join with `deal_interactions` on `deal_interactions.conversation_id = conversations.id`
@@ -191,6 +195,7 @@ Individual messages within conversations.
 | source_table        | text      | Data source ID                       |
 
 **Relationships:**
+
 - `conversation_id` → `conversations.id`
 
 ---
@@ -199,16 +204,16 @@ Individual messages within conversations.
 
 Organization's living knowledge base. Document content is stored in object storage — use `list_documents` and `get_document_content` MCP tools to access.
 
-| Column            | Type      | Description                                                                    |
-| ----------------- | --------- | ------------------------------------------------------------------------------ |
-| id                | text      | Document ID (PK, e.g. `docs_123`)                                              |
-| title             | text      | Document title                                                                 |
+| Column            | Type      | Description                                                                                      |
+| ----------------- | --------- | ------------------------------------------------------------------------------------------------ |
+| id                | text      | Document ID (PK, e.g. `docs_123`)                                                                |
+| title             | text      | Document title                                                                                   |
 | type              | text      | `PRODUCTS`, `EMOTION_SIGNALS`, `COMMERCIAL_SIGNALS`, `DEAL_PIPELINE`, `HEALTH_PIPELINE`, `OTHER` |
-| is_active         | boolean   | Whether the document is currently active                                       |
-| version           | integer   | Document version number                                                        |
-| minio_document_id | text      | Object storage identifier (internal)                                           |
-| created_at        | timestamp | Creation time                                                                  |
-| updated_at        | timestamp | Last update time                                                               |
+| is_active         | boolean   | Whether the document is currently active                                                         |
+| version           | integer   | Document version number                                                                          |
+| minio_document_id | text      | Object storage identifier (internal)                                                             |
+| created_at        | timestamp | Creation time                                                                                    |
+| updated_at        | timestamp | Last update time                                                                                 |
 
 ---
 
@@ -272,6 +277,7 @@ Sales opportunities with extracted JSON fields.
 | gate_recommendation     | text      | Gate recommendation                   |
 
 **Relationships:**
+
 - `company_id` → `companies.id`
 - `owner_contact_id` → `contacts.id`
 - Join with `deal_risks` on `deal_id`
@@ -560,22 +566,21 @@ Signals detected in conversations and tickets, with rationale.
 
 Internal tasks assigned to team members.
 
-| Column           | Type      | Description                              |
-| ---------------- | --------- | ---------------------------------------- |
-| id               | text      | Task ID (PK)                             |
-| company_id       | text      | Associated company ID (FK)               |
-| title            | text      | Task title                               |
-| status           | text      | `TODO`, `IN_PROGRESS`, `BLOCKED`, `DONE` |
-| content          | jsonb     | Task content (rich text JSON)            |
-| markdown_content | text      | Task content in markdown                 |
-| priority         | text      | `LOW`, `NORMAL`, `HIGH`, `URGENT`        |
-| tags             | text[]    | Tags                                     |
-| position         | integer   | Sort position within status column       |
-| sharing_status   | text      | `PUBLIC` or `PRIVATE`                    |
-| created_at       | timestamp | Creation time                            |
-| updated_at       | timestamp | Last update time                         |
-| due_at           | timestamp | Due date                                 |
-| created_by_id    | text      | Creator contact ID                       |
+| Column         | Type      | Description                              |
+| -------------- | --------- | ---------------------------------------- |
+| id             | text      | Task ID (PK)                             |
+| company_id     | text      | Associated company ID (FK)               |
+| title          | text      | Task title                               |
+| status         | text      | `TODO`, `IN_PROGRESS`, `BLOCKED`, `DONE` |
+| content        | jsonb     | Task content in markdown                 |
+| priority       | text      | `LOW`, `NORMAL`, `HIGH`, `URGENT`        |
+| tags           | text[]    | Tags                                     |
+| position       | integer   | Sort position within status column       |
+| sharing_status | text      | `PUBLIC` or `PRIVATE`                    |
+| created_at     | timestamp | Creation time                            |
+| updated_at     | timestamp | Last update time                         |
+| due_at         | timestamp | Due date                                 |
+| created_by_id  | text      | Creator contact ID                       |
 
 ---
 
@@ -595,19 +600,19 @@ Internal tasks assigned to team members.
 
 Free-form notes attached to companies or contacts.
 
-| Column              | Type      | Description                   |
-| ------------------- | --------- | ----------------------------- |
-| id                  | text      | Note ID (PK)                  |
-| title               | text      | Note title                    |
-| content             | text      | Note content in markdown      |
-| tags                | text[]    | Tags                          |
-| sharing_status      | text      | `PUBLIC` or `PRIVATE`         |
-| related_entity_type | text      | `COMPANY` or `CONTACT`        |
-| company_id          | text      | Associated company ID (FK)    |
-| contact_id          | text      | Associated contact ID (FK)    |
-| created_by_id       | text      | Creator ID                    |
-| created_at          | timestamp | Creation time                 |
-| updated_at          | timestamp | Last update time              |
+| Column              | Type      | Description                |
+| ------------------- | --------- | -------------------------- |
+| id                  | text      | Note ID (PK)               |
+| title               | text      | Note title                 |
+| content             | text      | Note content in markdown   |
+| tags                | text[]    | Tags                       |
+| sharing_status      | text      | `PUBLIC` or `PRIVATE`      |
+| related_entity_type | text      | `COMPANY` or `CONTACT`     |
+| company_id          | text      | Associated company ID (FK) |
+| contact_id          | text      | Associated contact ID (FK) |
+| created_by_id       | text      | Creator ID                 |
+| created_at          | timestamp | Creation time              |
+| updated_at          | timestamp | Last update time           |
 
 ---
 
