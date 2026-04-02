@@ -1,0 +1,9 @@
+{
+  "name": "Actioner Core",
+  "version": "0.1.0",
+  "description": "Customer intelligence powered by Actioner — query deals, customers, contacts, tickets, health scores, and more through a unified data model",
+  "author": {
+    "name": "Actioner"
+  },
+  "keywords": ["crm", "customer-intelligence", "deals", "tickets", "health", "actioner"]
+}
