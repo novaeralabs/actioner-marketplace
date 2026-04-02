@@ -1,112 +1,35 @@
 {
-  "$schema": "https://raw.githubusercontent.com/anthropics/claude-desktop-plugins/main/marketplace-schema.json",
-  "name": "Actioner Marketplace",
-  "description": "Official plugin marketplace for Actioner — customer intelligence tools for Claude Desktop",
-  "version": "0.1.0",
-  "publisher": {
+  "name": "actioner-marketplace",
+  "owner": {
     "name": "Actioner",
-    "url": "https://actioner.com",
-    "support_email": "hello@actioner.com"
+    "email": "hello@actioner.com"
   },
-  "repository": "https://github.com/actioner/actioner-marketplace",
+  "metadata": {
+    "description": "Official plugin marketplace for Actioner — customer intelligence tools for Claude Code",
+    "version": "0.1.0"
+  },
   "plugins": [
     {
-      "id": "actioner-core",
-      "name": "Actioner Core",
-      "version": "0.1.0",
+      "name": "actioner-core",
+      "source": "./plugins/core",
       "description": "Customer intelligence powered by Actioner — query deals, customers, contacts, tickets, health scores, and more through a unified data model",
-      "path": "plugins/core",
+      "version": "0.1.0",
       "author": {
         "name": "Actioner",
-        "url": "https://actioner.com"
+        "email": "hello@actioner.com"
       },
-      "icon": "https://actioner.com/favicon.ico",
-      "categories": ["crm", "customer-intelligence", "sales", "support"],
-      "keywords": ["crm", "customer-intelligence", "deals", "tickets", "health", "actioner", "hubspot", "salesforce", "zendesk"],
+      "homepage": "https://docs.actioner.com",
+      "repository": "https://github.com/actioner/actioner-marketplace",
       "license": "MIT",
-      "mcp": {
-        "server_name": "actioner",
-        "transport": "http",
-        "url": "https://app.actioner.com/mcp",
-        "authentication": {
-          "type": "oauth2",
-          "flow": "authorization_code_pkce",
-          "scopes": ["openid", "profile", "email", "offline_access"]
+      "keywords": ["crm", "customer-intelligence", "deals", "tickets", "health", "actioner", "hubspot", "salesforce", "zendesk"],
+      "category": "productivity",
+      "tags": ["crm", "sales", "support", "customer-intelligence"],
+      "mcpServers": {
+        "actioner": {
+          "type": "http",
+          "url": "https://app.actioner.com/mcp"
         }
-      },
-      "capabilities": {
-        "commands": [
-          {
-            "name": "briefing",
-            "description": "Get a daily briefing — urgent tickets, at-risk deals, upcoming closes, and health alerts"
-          },
-          {
-            "name": "search-customers",
-            "description": "Search for customers, contacts, or companies by name, industry, or criteria"
-          },
-          {
-            "name": "deal-pipeline",
-            "description": "View and analyze the deal pipeline — by stage, rep, time period, or health"
-          },
-          {
-            "name": "customer-health",
-            "description": "Check customer health scores, risk factors, and stakeholder sentiment"
-          }
-        ],
-        "skills": [
-          {
-            "name": "actioner-mcp-server",
-            "description": "Authoritative reference for constructing SQL queries against the Actioner unified data model"
-          }
-        ],
-        "tools": {
-          "read": [
-            "search_entities",
-            "query_data",
-            "get_deal",
-            "get_company",
-            "get_contact",
-            "get_ticket",
-            "get_task",
-            "get_conversation",
-            "get_daily_briefing",
-            "get_meeting_prep",
-            "list_documents",
-            "get_document_content"
-          ],
-          "write": [
-            "add_deal",
-            "add_task",
-            "add_person",
-            "add_company",
-            "add_entitlement",
-            "add_note",
-            "update_deal",
-            "update_company",
-            "update_person",
-            "update_task",
-            "update_entitlement",
-            "update_note",
-            "compose_email",
-            "create_meeting",
-            "update_meeting"
-          ]
-        }
-      },
-      "data_sources": [
-        "HubSpot",
-        "Salesforce",
-        "Zendesk",
-        "Freshdesk",
-        "Gmail",
-        "Outlook",
-        "Gong",
-        "Fathom",
-        "TLDV",
-        "Fireflies"
-      ],
-      "privacy_policy": "https://actioner.com/privacy-policy",
-      "documentation": "https://docs.actioner.com"
+      }
     }
   ]
 }
