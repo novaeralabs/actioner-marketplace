@@ -2,7 +2,7 @@
   "mcpServers": {
     "actioner": {
       "type": "http",
-      "url": "https://superb-maggot-communal.ngrok-free.app/mcp"
+      "url": "https://api.actioner.com/mcp"
     }
   }
 }
