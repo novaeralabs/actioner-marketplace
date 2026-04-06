@@ -660,3 +660,4 @@ Field mapping definitions used for data source value translation.
 | mapped_value    | text      | Mapped/translated value    |
 | created_at      | timestamp | Creation time              |
 | updated_at      | timestamp | Last update time           |
+
