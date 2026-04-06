@@ -18,6 +18,7 @@ jobs:
 
       - name: Create skills.zip
         run: |
+          rm -f skills.zip
           cd plugins/core/skills/actioner-mcp-server
           zip -r ../../../../skills.zip .
 
