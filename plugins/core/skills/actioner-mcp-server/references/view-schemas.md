@@ -78,8 +78,7 @@ Customer accounts from the unified contact mediation layer.
 | industries                   | text[]    | Industry classifications (use `'value' = ANY(industries)` to filter)        |
 | kind                         | text      | Company classification                                                      |
 | listed                       | text      | `LISTED`, `LISTED_BY_USER`, `NOT_LISTED`, `NOT_LISTED_BY_USER`              |
-| customer_state               | text      | `prospect`, `past_prospect`, `current_customer`, `past_customer`, `unknown` |
-| customer_type                | text      | Customer type from custom fields                                            |
+| customer_type                | text      | Customer type from custom fields `prospect`, `past_prospect`, `current_customer`, `past_customer`, `unknown`|
 
 **Relationships:**
 

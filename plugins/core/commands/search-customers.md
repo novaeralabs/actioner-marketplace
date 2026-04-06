@@ -20,7 +20,7 @@ Determine the best search strategy based on what the user is looking for:
 
 **If searching for a contact/person:** Use `search_entities` against the `contacts` view. Match on `name` using `ILIKE '%term%'` or on `email` using array containment. Include contact name (linked), title, company name (linked), email, and type.
 
-**If the query is about a category** (e.g., "healthcare companies", "enterprise customers"): Use `search_entities` with appropriate filters on `industries`, `customer_state`, `employees`, `tags`, or `country`.
+**If the query is about a category** (e.g., "healthcare companies", "enterprise customers"): Use `search_entities` with appropriate filters on `industries`, `customer_type`, `employees`, `tags`, or `country`.
 
 **If the query is analytical** (e.g., "how many customers in Europe", "top customers by deal value"): Use `query_data` with the appropriate aggregation.
 
