@@ -108,6 +108,17 @@ Use **`query_data`** when:
 
 **INTERACTION:** date (date, sortable), type (enum), subject (`link` → `get_conversation`, sortable), person (`link` → `get_contact`), company (`link` → `get_company`).
 
+## `query_data` Tool Reference
+
+`query_data` executes a **read-only SQL query** for aggregated or analytical data — counts, averages, distributions, trends, and summaries. Use it when the result represents grouped metrics, not a list of individual records the user would click into. For lists of browsable entity records (deals, companies, contacts, tasks, interactions), use `search_entities` instead.
+
+### SQL Rules
+
+- The query runs in the **`agent_views`** schema which contains pre-built views for tickets, companies, contacts, conversations, deals, entitlements, health, products, work items, action items, conversation messages, documents, signals, tasks, notes, and more.
+- All views are **automatically scoped** to the current organization.
+- Generated SQL must be **PostgreSQL 17** compliant.
+- Results are **capped at 500 rows** — use `LIMIT` and `ORDER BY` to control which rows are returned.
+
 ## Entity Detail Tools
 
 | Tool               | Input            | Shows                                                                            |
