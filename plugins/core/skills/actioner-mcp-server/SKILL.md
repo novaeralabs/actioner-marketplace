@@ -69,33 +69,44 @@ Use **`query_data`** when:
 
 **When in doubt:** if the user would want to click on individual rows to see more detail, use `search_entities`. If they want to see a chart or summary number, use `query_data`.
 
-## SQL Rules for `search_entities`
+## `search_entities` Tool Reference
 
-> **CRITICAL:** The `sql` parameter must **NOT** contain `ORDER BY` or `LIMIT` clauses. Sorting and pagination are handled automatically by the tool via the `defaultSort` and `pageSize` parameters.
+`search_entities` displays a **list of entity records** in an interactive table with typed columns, formatting, clickable links, sorting, and pagination. Use it when each row represents a specific entity (deal, company, contact, task, interaction, etc.) the user would browse and click into. For aggregated/analytical data (counts, averages, distributions, trends), use `query_data` instead.
 
-**Parameters:**
+### Parameters
 
 | Parameter     | Required | Description                                                             |
 | ------------- | -------- | ----------------------------------------------------------------------- |
 | `label`       | Yes      | Table title displayed above the table                                   |
-| `sql`         | Yes      | Base SQL query (no ORDER BY / LIMIT)                                    |
+| `sql`         | Yes      | Base SQL query (see SQL rules below)                                    |
 | `columns`     | Yes      | Column definitions with display types, sortable flags, and link actions |
 | `defaultSort` | No       | Initial sort: `{ column: "amount", direction: "DESC" }`                 |
 | `pageSize`    | No       | Rows per page (10–100, default 50)                                      |
 
-## Column Metadata for `search_entities`
+### SQL Rules
 
-When the primary entity is a **DEAL**, always include: deal name (linked to `get_deal`, sortable), company name (linked to `get_company`, sortable), amount (currency, sortable), stage (badge, sortable), close date (date, sortable).
+> **CRITICAL:** The `sql` parameter must only contain **SELECT, FROM, JOIN, WHERE, GROUP BY, HAVING** clauses. Do **NOT** add `ORDER BY` or `LIMIT` — sorting and pagination are managed automatically by the UI via the `defaultSort` and `pageSize` parameters.
 
-When the primary entity is a **COMPANY**, always include: company name (linked to `get_company`, sortable), industries (text[], use `array_to_string(industries, ', ')` to display), deal count or total pipeline (if joined, sortable), primary contact (linked to `get_contact`).
+### Column Rules
 
-When the primary entity is a **CONTACT**, always include: person name (linked to `get_contact`, sortable), title (text), company name (linked to `get_company`, sortable), email (text), last interaction date (date, sortable, if joined).
+1. **Always include the entity's ID** as a hidden column (`visible: false`).
+2. **Always include ID columns for any linked entities** — these are passed as `linkAction` args so the detail tool knows which record to load.
+3. **Use `dataType: 'link'`** with a `linkAction` for entity name columns so users can click to view details.
+4. **Set `sortable: true`** on columns where sorting is meaningful (names, dates, amounts, statuses).
+5. **Do NOT set `sortable: true`** on ID columns, array columns, or long text fields.
+6. **Keep total visible columns to 4–6** for readability.
 
-When the primary entity is a **TASK**, always include: task title (linked to `get_task`, sortable), assigned to (linked to `get_contact`), due date (date, sortable), priority (badge, sortable), status (badge, sortable).
+### Required Columns by Entity Type
 
-When the primary entity is an **INTERACTION/CONVERSATION**, always include: date (date, sortable), type (badge), subject (linked to `get_conversation`, sortable), person (linked to `get_contact`), company (linked to `get_company`).
+**DEAL:** deal name (`link` → `get_deal`, sortable), company name (`link` → `get_company`, sortable), amount (decimal, sortable), stage (enum, sortable), close date (date, sortable). Add others as relevant.
 
-**For all entity types:** Always include the entity's ID field (may be hidden). Always include ID fields for linked entities. Set `sortable: true` on names, dates, amounts, counts, statuses. Do NOT set `sortable: true` on ID columns, array columns, or long text fields. Keep total visible columns to 5–8 for readability.
+**COMPANY:** company name (`link` → `get_company`, sortable), industries (text[], use `array_to_string(industries, ', ')` to display), deal count or total pipeline (number, sortable), primary contact (`link` → `get_contact`).
+
+**CONTACT:** name (`link` → `get_contact`, sortable), title (text), company name (`link` → `get_company`, sortable), email (text), last interaction date (date, sortable).
+
+**TASK:** title (`link` → `get_task`, sortable), assigned to (`link` → `get_contact`), due date (date, sortable), priority (enum, sortable), status (enum, sortable), related deal (`link` → `get_deal`).
+
+**INTERACTION:** date (date, sortable), type (enum), subject (`link` → `get_conversation`, sortable), person (`link` → `get_contact`), company (`link` → `get_company`).
 
 ## Entity Detail Tools
 
