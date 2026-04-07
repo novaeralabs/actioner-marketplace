@@ -34,21 +34,21 @@ Before **ANY** call to `search_entities` or `query_data`, you MUST complete ever
 
 These are the most frequent wrong guesses. The left column **does not exist**:
 
-| Wrong (does NOT exist) | Correct column name    | View      | Notes                                         |
-| ---------------------- | ---------------------- | --------- | --------------------------------------------- |
-| `website`              | `website_url`          | companies |                                               |
-| `industry`             | `industries`           | companies | `text[]` — use `'X' = ANY(industries)`        |
-| `size`                 | `employees`            | companies |                                               |
-| `employee_count`       | `employees`            | companies |                                               |
-| `domain`               | `domains`              | companies | `text[]` — use `'X' = ANY(domains)`           |
-| `company_name`         | `name`                 | companies | Use alias: `c.name AS company_name`           |
-| `contact_name`         | `name`                 | contacts  | Use alias: `ct.name AS contact_name`          |
-| `deal_name`            | `name`                 | deals     | Use alias: `d.name AS deal_name`              |
-| `ticket_subject`       | `subject`              | tickets   |                                               |
-| `close_date`           | `expected_close_date`  | deals     |                                               |
-| `probability`          | `forecast_probability` | deals     |                                               |
-| `is_deleted`           | _(pre-filtered)_       | all views | Views already exclude deleted records          |
-| `deleted_at`           | _(pre-filtered)_       | all views | Views already exclude deleted records          |
+| Wrong (does NOT exist) | Correct column name    | View      | Notes                                  |
+| ---------------------- | ---------------------- | --------- | -------------------------------------- |
+| `website`              | `website_url`          | companies |                                        |
+| `industry`             | `industries`           | companies | `text[]` — use `'X' = ANY(industries)` |
+| `size`                 | `employees`            | companies |                                        |
+| `employee_count`       | `employees`            | companies |                                        |
+| `domain`               | `domains`              | companies | `text[]` — use `'X' = ANY(domains)`    |
+| `company_name`         | `name`                 | companies | Use alias: `c.name AS company_name`    |
+| `contact_name`         | `name`                 | contacts  | Use alias: `ct.name AS contact_name`   |
+| `deal_name`            | `name`                 | deals     | Use alias: `d.name AS deal_name`       |
+| `ticket_subject`       | `subject`              | tickets   |                                        |
+| `close_date`           | `expected_close_date`  | deals     |                                        |
+| `probability`          | `forecast_probability` | deals     |                                        |
+| `is_deleted`           | _(pre-filtered)_       | all views | Views already exclude deleted records  |
+| `deleted_at`           | _(pre-filtered)_       | all views | Views already exclude deleted records  |
 
 ## Choosing Between `search_entities` and `query_data`
 
@@ -117,7 +117,7 @@ Use **`query_data`** when:
 - The query runs in the **`agent_views`** schema which contains pre-built views for tickets, companies, contacts, conversations, deals, entitlements, health, products, work items, action items, conversation messages, documents, signals, tasks, notes, and more.
 - All views are **automatically scoped** to the current organization.
 - Generated SQL must be **PostgreSQL 17** compliant.
-- Results are **capped at 500 rows** — use `LIMIT` and `ORDER BY` to control which rows are returned.
+- Results are **capped at 100 rows** — use `LIMIT` and `ORDER BY` to control which rows are returned.
 
 ## Entity Detail Tools
 
